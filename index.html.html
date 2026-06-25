@@ -56,12 +56,13 @@
             overflow: hidden;
         }
 
-        /* Replace the div above with an actual image tag like this when ready:
-           <img src="your-logo.png" alt="StrongHerEra Logo" class="logo-img"> 
-        */
         .logo-img {
-            max-width: 150px;
-            margin-bottom: 20px;
+            width: 120px;         /* Forces a specific width */
+    	    height: 120px;        /* Forces the same height to make a perfect square */
+    	    border-radius: 50%;   /* Rounds the corners into a circle */
+    	    object-fit: cover;    /* Prevents the image from stretching or squishing */
+    	    margin-bottom: 20px;
+    	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
         }
 
         h1 {
