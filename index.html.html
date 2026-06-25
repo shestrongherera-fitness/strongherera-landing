@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrongHerEra | Free Fitness Guides</title>
+    <style>
+        :root {
+            --primary-color: #d81b60; /* Strong, vibrant pink/red */
+            --primary-hover: #ad144b;
+            --text-main: #2d3748;
+            --text-light: #718096;
+            --bg-color: #f7fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            background-color: #edf2f7;
+            border: 2px dashed #cbd5e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            color: var(--text-light);
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        /* Replace the div above with an actual image tag like this when ready:
+           <img src="your-logo.png" alt="StrongHerEra Logo" class="logo-img"> 
+        */
+        .logo-img {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        input[type="email"] {
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .divider::before { margin-right: .5em; }
+        .divider::after { margin-left: .5em; }
+
+        .direct-link {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .direct-link:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Logo Area -->
+	<img src="E.png" alt="StrongHerEra Logo" class="logo-img">
+        
+        <!-- Welcome text in Malay -->
+        <h1>Bersedia Untuk Bermula Dengan Fitness Era Anda?</h1>
+        
+        <!-- Instructions -->
+        <p>Sila masukkan e-mel anda di bawah atau klik pautan untuk memuat turun panduan PDF percuma.</p>
+
+        <!-- Email Capture Form (Ready for Netlify) -->
+        <form name="fitness-guide-downloads" method="POST" data-netlify="true" class="form-group">
+            <input type="email" name="email" placeholder="Alamat e-mel anda" required>
+            <button type="submit">Hantar & Muat Turun (Download)</button>
+        </form>
+
+        <div class="divider">ATAU</div>
+
+        <!-- Direct Download Link -->
+        <a href="StrongHerEra_Guide.pdf" download class="direct-link">
+            Klik di sini untuk muat turun terus
+        </a>
+    </div>
+
+</body>
+</html>
