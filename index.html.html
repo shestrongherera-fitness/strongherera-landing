@@ -159,16 +159,56 @@
         <!-- Instructions -->
         <p>Sila masukkan e-mel anda di bawah atau klik pautan untuk memuat turun panduan PDF percuma</p>
 
-        <!-- Email Capture Form (Ready for Netlify) -->
-	<form action="https://api.web3forms.com/submit" method="POST" class="form-group">
-    
+        <!-- Email Capture Form  -->
+	<form id="downloadForm" action="https://api.web3forms.com/submit" method="POST" class="form-group">
     		<input type="hidden" name="access_key" value="85e918cf-52bd-449e-8425-198c5b435ed1">
-    
-    		<input type="hidden" name="redirect" value="https://your-vercel-url.vercel.app">
-
     		<input type="email" name="email" placeholder="Alamat e-mel anda" required>
-    		<button type="submit">Hantar & Muat Turun (Download)</button>
+    		<button type="submit" id="submitBtn">Hantar & Muat Turun (Download)</button>
 	</form>
+
+	<script>
+    		document.getElementById('downloadForm').addEventListener('submit', function(event) {
+        		event.preventDefault(); 
+        
+        		const form = event.target;
+        		const formData = new FormData(form);
+        		const btn = document.getElementById('submitBtn');
+
+        		const originalText = btn.innerText;
+        		btn.innerText = "Memproses...";
+        
+        		// 2. Send the email data silently in the background
+        		fetch(form.action, {
+            			method: form.method,
+            			body: formData
+        		}).then(response => {
+            			if(response.ok) {
+                			// 3. Trigger the PDF download programmatically
+                			const link = document.createElement('a');
+                			link.href = 'StrongHerEra_Guide.pdf'; // Ensure this matches your PDF file name exactly
+                			link.download = 'StrongHerEra_Guide.pdf';
+                			document.body.appendChild(link);
+                			link.click();
+                			document.body.removeChild(link);
+
+                			// 4. Reset the form and button
+                			form.reset();
+                			btn.innerText = "Berjaya! Sila semak muat turun anda.";
+                
+                			setTimeout(() => {
+                    				btn.innerText = originalText;
+                			}, 3000);
+            			} else {
+                			alert("Ralat sistem. Sila cuba lagi.");
+                			btn.innerText = originalText;
+            			}
+        		}).catch(error => {
+            			alert("Ralat rangkaian. Sila cuba lagi.");
+            			btn.innerText = originalText;
+        		});
+    		});
+	</script>
+
 
         <div class="divider">ATAU</div>
 
