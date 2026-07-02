@@ -160,15 +160,20 @@
         <p>Sila masukkan e-mel anda di bawah atau klik pautan untuk memuat turun panduan PDF percuma</p>
 
         <!-- Email Capture Form (Ready for Netlify) -->
-        <form name="fitness-guide-downloads" method="POST" data-netlify="true" class="form-group">
-            <input type="email" name="email" placeholder="Alamat e-mel anda" required>
-            <button type="submit">Hantar & Muat Turun (Download)</button>
-        </form>
+	<form action="https://api.web3forms.com/submit" method="POST" class="form-group">
+    
+    		<input type="hidden" name="access_key" value="85e918cf-52bd-449e-8425-198c5b435ed1">
+    
+    		<input type="hidden" name="redirect" value="https://your-vercel-url.vercel.app">
+
+    		<input type="email" name="email" placeholder="Alamat e-mel anda" required>
+    		<button type="submit">Hantar & Muat Turun (Download)</button>
+	</form>
 
         <div class="divider">ATAU</div>
 
         <!-- Direct Download Link -->
-        <a href="StrongHerEra_Guide.pdf" download class="direct-link">
+        <a href="SHE Panduan Fitness Beginner.pdf" download class="direct-link">
             Klik Di Sini Untuk Muat Turun Terus
         </a>
     </div>
