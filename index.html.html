@@ -175,7 +175,7 @@
         		const btn = document.getElementById('submitBtn');
 
         		const originalText = btn.innerText;
-        		btn.innerText = "Memproses...";
+        		btn.innerText = "Downloading...";
         
         		// 2. Send the email data silently in the background
         		fetch(form.action, {
@@ -185,8 +185,8 @@
             			if(response.ok) {
                 			// 3. Trigger the PDF download programmatically
                 			const link = document.createElement('a');
-                			link.href = 'SHE Panduan Fitness Beginne.pdf'; 
-                			link.download = 'StrongHerEra_Guide.pdf';
+                			link.href = 'SHE Panduan Fitness Beginner.pdf'; 
+                			link.download = 'SHE Panduan Fitness Beginner.pdf';
                 			document.body.appendChild(link);
                 			link.click();
                 			document.body.removeChild(link);
