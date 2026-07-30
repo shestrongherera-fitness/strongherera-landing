@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrongHerEra | Tracker Harian Fitness</title>
+    <style>
+        :root {
+            --primary-color: #d81b60; /* Strong, vibrant pink/red */
+            --primary-hover: #ad144b;
+            --text-main: #2d3748;
+            --text-light: #718096;
+            --bg-color: #f7fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            background-color: #edf2f7;
+            border: 2px dashed #cbd5e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            color: var(--text-light);
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .logo-img {
+            width: 120px;         /* Forces a specific width */
+    	    height: 120px;        /* Forces the same height to make a perfect square */
+    	    border-radius: 50%;   /* Rounds the corners into a circle */
+    	    object-fit: cover;    /* Prevents the image from stretching or squishing */
+    	    margin-bottom: 20px;
+    	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        input[type="email"] {
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .divider::before { margin-right: .5em; }
+        .divider::after { margin-left: .5em; }
+
+        .direct-link {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .direct-link:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+    </style>
+
+	<script data-goatcounter="https://strongherera.goatcounter.com/count"
+        	async src="//gc.zgo.at/count.js"></script>
+
+</head>
+<body>
+
+    <div class="card">
+        <!-- Logo Area -->
+	<img src="she logo.png" alt="StrongHerEra Logo" class="logo-img">
+        
+        <!-- Welcome text in Malay -->
+        <h1>Bersedia Untuk Mula Fitness Journey Anda?</h1>
+        
+        <!-- Instructions -->
+        <p>Sila masukkan e-mel anda di bawah atau klik pautan untuk memuat turun panduan PDF percuma</p>
+
+        <!-- Email Capture Form  -->
+	<form id="downloadForm" action="https://api.web3forms.com/submit" method="POST" class="form-group">
+    		<input type="hidden" name="access_key" value="85e918cf-52bd-449e-8425-198c5b435ed1">
+    		<input type="email" name="email" placeholder="Alamat e-mel anda" required>
+    		<button type="submit" id="submitBtn">Hantar & Muat Turun (Download)</button>
+	</form>
+
+	<script>
+    		document.getElementById('downloadForm').addEventListener('submit', function(event) {
+        		event.preventDefault(); 
+        
+        		const form = event.target;
+        		const formData = new FormData(form);
+        		const btn = document.getElementById('submitBtn');
+
+        		const originalText = btn.innerText;
+        		btn.innerText = "Downloading...";
+        
+        		// 2. Send the email data silently in the background
+        		fetch(form.action, {
+            			method: form.method,
+            			body: formData
+        		}).then(response => {
+            			if(response.ok) {
+                			// 3. Trigger the PDF download programmatically
+                			const link = document.createElement('a');
+                			link.href = 'SHE Weekly Beginner Fitness Tracker.pdf'; 
+                			link.download = 'SHE Weekly Beginner Fitness Tracker.pdf';
+                			document.body.appendChild(link);
+                			link.click();
+                			document.body.removeChild(link);
+
+                			// 4. Reset the form and button
+                			form.reset();
+                			btn.innerText = "Berjaya! Sila semak muat turun anda.";
+                
+                			setTimeout(() => {
+                    				btn.innerText = originalText;
+                			}, 3000);
+            			} else {
+                			alert("Ralat sistem. Sila cuba lagi.");
+                			btn.innerText = originalText;
+            			}
+        		}).catch(error => {
+            			alert("Ralat rangkaian. Sila cuba lagi.");
+            			btn.innerText = originalText;
+        		});
+    		});
+	</script>
+
+
+        <div class="divider">ATAU</div>
+
+        <!-- Direct Download Link -->
+        <a href="SHE Weekly Beginner Fitness Tracker.pdf" download class="direct-link" data-goatcounter-click="direct-pdf-download">
+            Klik Di Sini Untuk Muat Turun Terus
+        </a>
+    </div>
+
+</body>
+</html>
