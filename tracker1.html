@@ -28,7 +28,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 100px 20px 20px 20px;
         }
 
         .card {
@@ -145,6 +145,97 @@
             color: var(--primary-hover);
             text-decoration: underline;
         }
+
+/* Header Styles */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between; /* Pushes brand to left, nav to right */
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Soft drop shadow */
+            z-index: 10; /* Ensures it stays on top of other elements */
+        }
+
+        .header-brand {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .header-nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .header-nav a:hover {
+            color: var(--primary-color);
+        }
+
+	/* Footer Styles */
+        footer {
+            margin-top: auto; /* Pushes footer to the bottom if content is short */
+            width: 100%;
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-light);
+            font-size: 13px;
+            border-top: 1px solid #e2e8f0;
+            background-color: transparent;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .version-badge {
+            background-color: #edf2f7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: monospace;
+            color: #4a5568;
+        }
+
     </style>
 
 	<script data-goatcounter="https://strongherera.goatcounter.com/count"
@@ -152,6 +243,18 @@
 
 </head>
 <body>
+
+	<!-- Header Section -->
+    <header>
+        <a href="index.html" class="header-brand">
+            <img src="she logo.png" alt="StrongHerEra" class="header-logo">
+            StrongHerEra
+        </a>
+        
+        <nav class="header-nav">
+            <a href="index.html">Main</a>
+        </nav>
+    </header>
 
     <div class="card">
         <!-- Logo Area -->
@@ -168,6 +271,7 @@
         <!-- Email Capture Form  -->
 	<form id="downloadForm" action="https://api.web3forms.com/submit" method="POST" class="form-group">
     		<input type="hidden" name="access_key" value="85e918cf-52bd-449e-8425-198c5b435ed1">
+		<input type="hidden" name="PDF_Requested" value="Advanced Guide">
     		<input type="email" name="email" placeholder="Alamat e-mel anda" required>
     		<button type="submit" id="submitBtn">Hantar & Muat Turun (Download)</button>
 	</form>
@@ -223,6 +327,24 @@
             Klik Di Sini Untuk Muat Turun Terus
         </a>
     </div>
+
+	<!-- Footer Section -->
+    <footer>
+        <div class="footer-links">
+            <!-- Replace the # with your actual Instagram/TikTok link -->
+            <a href="#" target="_blank">Instagram</a>
+            <a href="#" target="_blank">TikTok</a>
+            
+            <!-- You can create these pages later, the # just makes them unclickable placeholders for now -->
+            <a href="#">Polisi Privasi</a>
+            <a href="#">Terma & Syarat</a>
+        </div>
+        
+        <div class="footer-meta">
+            <span>&copy; 2026 StrongHerEra. Hak cipta terpelihara.</span>
+            <span class="version-badge">v1.0.0</span>
+        </div>
+    </footer>
 
 </body>
 </html>
