@@ -236,15 +236,14 @@
 
 /* Tracker Banner Styles */
         .tracker-banner {
-            background: white;
+            background: #eff6ff; /* Soft light blue background */
             padding: 40px 30px;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             width: 100%;
             max-width: 800px;
-            margin-top: 40px; /* Separates it from the PDFs */
             text-align: center;
-            border: 2px solid var(--primary-light);
+            border: 2px solid #bfdbfe; /* Matching blue border */
         }
 
         .tracker-banner h2 {
@@ -260,7 +259,7 @@
         }
 
         .tracker-banner .btn-tracker {
-            background-color: var(--text-main); /* Dark color to contrast with the pink PDF buttons */
+            background-color: #2563eb; /* Vibrant blue button */
             color: white;
             border: none;
             text-decoration: none;
@@ -274,7 +273,16 @@
         }
 
         .tracker-banner .btn-tracker:hover {
-            background-color: #1a202c; /* Slightly darker on hover */
+            background-color: #1d4ed8; /* Darker blue on hover */
+        }
+
+        /* Divider Line Style */
+        .section-divider {
+            width: 100%;
+            max-width: 900px;
+            border: 0;
+            border-top: 2px dashed #cbd5e1; /* Creates a dashed separation line */
+            margin: 50px 0 40px 0; /* Adds spacing above and below the line */
         }
 
     </style>
@@ -331,15 +339,15 @@
 	    <img src="30 day challenge bw.jpg" alt="Pratonton Panduan" style="align-self:center; max-width: 40%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <a href="30daybwchallenge.html" class="btn">Nak Tracker Ini</a>
         </div>
-
     </div>
 
+	<hr class="section-divider">
 <!-- New Tracker Section -->
-    <div class="tracker-banner">
-        <h2>📈 Beginner Fitness Tracker</h2>
-        <p>Track progress anda, sikit demi sikit, hari demi hari.</p>
-        <a href="tracker.html" class="btn-tracker">Guna Tracker Sekarang &rarr;</a>
-    </div>
+    	<div class="tracker-banner">
+        	<h2>📈 Beginner Fitness Tracker</h2>
+        	<p>Track progress anda, sikit demi sikit, hari demi hari.</p>
+        	<a href="tracker.html" class="btn-tracker">Guna Tracker Sekarang &rarr;</a>
+    	</div>
 
 	<!-- Footer Section -->
     <footer>
