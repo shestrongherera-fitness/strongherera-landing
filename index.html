@@ -236,6 +236,49 @@
             color: #4a5568;
         }
 
+/* Tracker Banner Styles */
+        .tracker-banner {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px; /* Separates it from the PDFs */
+            text-align: center;
+            border: 2px solid var(--primary-light);
+        }
+
+        .tracker-banner h2 {
+            font-size: 24px;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .tracker-banner p {
+            color: var(--text-light);
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .tracker-banner .btn-tracker {
+            background-color: var(--text-main); /* Dark color to contrast with the pink PDF buttons */
+            color: white;
+            border: none;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+
+        .tracker-banner .btn-tracker:hover {
+            background-color: #1a202c; /* Slightly darker on hover */
+        }
+
     </style>
 </head>
 <body>
@@ -249,6 +292,7 @@
         
         <nav class="header-nav">
             <a href="index.html">Home</a>
+	    <a href="fitness generator.html">Tracker</a>
         </nav>
     </header>
 
@@ -272,18 +316,41 @@
 
         <!-- PDF Option 2 -->
         <div class="card">
-            <h2>Tracker Harian Fitness</h2>
+            <h2>Tracker Habit Fitness</h2>
             <p>Track dan bina habit fitness baru setiap hari untuk seminggu.</p>
 	    <img src="SHE Weekly Beginner Fitness Tracker.jpg" alt="Pratonton Panduan" style="align-self:center; max-width: 40%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <a href="tracker1.html" class="btn">Nak Tracker Ini</a>
         </div>
     </div>
 
+        <div class="card">
+            <h2>Tracker Harian Joging</h2>
+            <p>Track larian anda setiap hari untuk seminggu. Mudah untuk beginners yang ingin bina habit joging.</p>
+	    <img src="SHE Tracker Harian Joging.jpg" alt="Pratonton Panduan" style="align-self:center; max-width: 40%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <a href="jogingtracker.html" class="btn">Nak Tracker Ini</a>
+        </div>
+    </div>
+
+        <div class="card">
+            <h2>30-hari Challenge Brisk Walk Tracker</h2>
+            <p>Cabar diri anda untuk brisk walk 30 hari. Tak perlu lama, cuma perlu bermula, Sesuai untuk beginners yang nak mula journey fat loss.</p>
+	    <img src="30 day challenge bw.jpg" alt="Pratonton Panduan" style="align-self:center; max-width: 40%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <a href="30daybwchallenge.html" class="btn">Nak Tracker Ini</a>
+        </div>
+    </div>
+
+<!-- New Tracker Section -->
+    <div class="tracker-banner">
+        <h2>📈 Beginner Fitness Tracker</h2>
+        <p>Track progress anda, sikit demi sikit, hari demi hari.</p>
+        <a href="tracker.html" class="btn-tracker">Guna Tracker Sekarang &rarr;</a>
+    </div>
+
 	<!-- Footer Section -->
     <footer>
         <div class="footer-links">
             <!-- Replace the # with your actual Instagram/TikTok link -->
-            <a href="#" target="_blank">TikTok</a>
+            <a href="https://www.tiktok.com/@strong.her.era?_r=1&_t=ZS-98ox06L6j69" target="_blank">TikTok</a>
             
             <!-- You can create these pages later, the # just makes them unclickable placeholders for now -->
             <a href="#">Polisi Privasi</a>

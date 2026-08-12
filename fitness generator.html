@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrongHerEra | Fitness Tracker</title>
+    <style>
+        :root {
+            --primary-color: #d81b60;
+            --primary-hover: #ad144b;
+            --primary-light: #fce4ec;
+            --text-main: #2d3748;
+            --text-light: #718096;
+            --bg-color: #f7fafc;
+            --success: #38a169;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 100px 20px 20px 20px;
+        }
+
+        /* Header (matches site) */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        .header-brand {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-nav a, .header-nav button {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .header-nav a:hover, .header-nav button:hover {
+            color: var(--primary-color);
+        }
+
+        /* App shell */
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .app-header h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .app-header p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .app-card {
+            background: white;
+            padding: 36px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .screen { display: none; }
+        .screen.active { display: block; }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            max-width: 480px;
+            width: 100%;
+        }
+
+        .stat-pill {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-pill .num {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-pill .label {
+            font-size: 11px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Category selection */
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .category-btn {
+            background: var(--bg-color);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 24px 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-btn:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .category-btn .emoji {
+            font-size: 32px;
+        }
+
+        .category-btn .name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        /* Goal screen */
+        .day-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .goal-emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .goal-text {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .goal-sub {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .timer-display {
+            font-size: 44px;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 24px;
+        }
+
+        button.btn, a.btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+
+        button.btn:hover, a.btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button.btn-secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border);
+        }
+
+        button.btn-secondary:hover {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        /* Feedback screen */
+        .feeling-grid {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 24px 0 10px 0;
+        }
+
+        .feeling-btn {
+            background: var(--bg-color);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 14px;
+            cursor: pointer;
+            transition: all 0.15s;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .feeling-btn:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .feeling-btn .emoji { font-size: 30px; }
+        .feeling-btn .label { font-size: 13px; font-weight: 600; }
+
+        /* Done screen */
+        .done-emoji {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        /* History */
+        .history-section {
+            max-width: 480px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .history-section h3 {
+            font-size: 16px;
+            margin-bottom: 14px;
+            color: var(--text-main);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 14px 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .history-item .cat-emoji { font-size: 22px; }
+
+        .history-item .info { flex: 1; text-align: left; }
+
+        .history-item .info .goal { font-size: 14px; font-weight: 600; }
+
+        .history-item .info .date { font-size: 12px; color: var(--text-light); }
+
+        .history-item .feel-emoji { font-size: 20px; }
+
+        .history-empty {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        .clear-history-btn {
+            display: block;
+            margin: 16px auto 0 auto;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 12px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .clear-history-btn:hover { color: var(--primary-color); }
+
+        /* Footer (matches site) */
+        footer {
+            margin-top: 50px;
+            width: 100%;
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-light);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            background-color: transparent;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--primary-color); }
+
+        .footer-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .version-badge {
+            background-color: #edf2f7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: monospace;
+            color: #4a5568;
+        }
+
+        @media (max-width: 420px) {
+            .category-grid { grid-template-columns: 1fr 1fr; }
+            .app-card { padding: 28px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <a href="index.html" class="header-brand">
+            <img src="she logo.png" alt="StrongHerEra" class="header-logo">
+            StrongHerEra
+        </a>
+        <nav class="header-nav">
+            <a href="index.html">Home</a>
+            <button id="navHistoryBtn" type="button">Sejarah</button>
+	    <a href="fitness generator.html">Tracker</a>
+        </nav>
+    </header>
+
+    <div class="app-header">
+        <h1>Beginner Fitness Tracker</h1>
+        <p>Track progress anda, sikit demi sikit, hari demi hari.</p>
+    </div>
+
+    <div class="stats-bar" id="statsBar" style="display:none;">
+        <div class="stat-pill">
+            <div class="num" id="statTotal">0</div>
+            <div class="label">Sesi</div>
+        </div>
+        <div class="stat-pill">
+            <div class="num" id="statStreak">0</div>
+            <div class="label">Streak</div>
+        </div>
+    </div>
+
+    <!-- Screen 1: Category Selection -->
+    <div class="screen active" id="screen-select">
+        <div class="app-card">
+            <h2 style="margin-bottom: 20px; font-size: 18px;">Apa fokus anda hari ni?</h2>
+            <div class="category-grid">
+                <button class="category-btn" data-category="running">
+                    <span class="emoji">🏃</span>
+                    <span class="name">Running</span>
+                </button>
+                <button class="category-btn" data-category="walking">
+                    <span class="emoji">🚶</span>
+                    <span class="name">Walking</span>
+                </button>
+                <button class="category-btn" data-category="strength">
+                    <span class="emoji">💪</span>
+                    <span class="name">Strength</span>
+                </button>
+                <button class="category-btn" data-category="general">
+                    <span class="emoji">🌱</span>
+                    <span class="name">General Fitness</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 2: Today's Goal -->
+    <div class="screen" id="screen-goal">
+        <div class="app-card">
+            <div class="day-badge" id="dayBadge">HARI 1</div>
+            <div class="goal-emoji" id="goalEmoji">🚶</div>
+            <div class="goal-text" id="goalText">20 min brisk walk</div>
+            <div class="goal-sub" id="goalSub">Matlamat hari ini</div>
+            <button class="btn" id="startBtn">MULA</button>
+            <div class="btn-row">
+                <button class="btn-secondary btn" id="backToSelectBtn">Tukar Fokus</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 3: In Session -->
+    <div class="screen" id="screen-session">
+        <div class="app-card">
+            <div class="goal-emoji" id="sessionEmoji">🚶</div>
+            <div class="goal-text" id="sessionGoalText">20 min brisk walk</div>
+            <div class="timer-display" id="timerDisplay">00:00</div>
+            <button class="btn" id="finishBtn">SELESAI</button>
+        </div>
+    </div>
+
+    <!-- Screen 4: Feedback -->
+    <div class="screen" id="screen-feedback">
+        <div class="app-card">
+            <h2 style="font-size: 18px;">Macam mana rasa?</h2>
+            <div class="feeling-grid">
+                <button class="feeling-btn" data-feeling="easy">
+                    <span class="emoji">😊</span>
+                    <span class="label">Senang</span>
+                </button>
+                <button class="feeling-btn" data-feeling="okay">
+                    <span class="emoji">😐</span>
+                    <span class="label">Okay</span>
+                </button>
+                <button class="feeling-btn" data-feeling="hard">
+                    <span class="emoji">😓</span>
+                    <span class="label">Susah</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 5: Done -->
+    <div class="screen" id="screen-done">
+        <div class="app-card">
+            <div class="done-emoji">🎉</div>
+            <div class="goal-text">Bagus! Sesi direkod.</div>
+            <div class="goal-sub" id="doneSub">Jumpa lagi esok!</div>
+            <div class="btn-row">
+                <button class="btn" id="doneHomeBtn">Kembali</button>
+                <button class="btn-secondary btn" id="doneHistoryBtn">Lihat Sejarah</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History -->
+    <div class="history-section" id="historySection" style="display:none;">
+        <h3>Sejarah Sesi Anda</h3>
+        <div class="history-list" id="historyList"></div>
+        <button class="clear-history-btn" id="clearHistoryBtn">Padam semua sejarah</button>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-links">
+            <a href="#" target="_blank">TikTok</a>
+            <a href="#">Polisi Privasi</a>
+            <a href="#">Terma & Syarat</a>
+        </div>
+        <div class="footer-meta">
+            <span>&copy; 2026 StrongHerEra. Hak cipta terpelihara.</span>
+            <span class="version-badge">v1.0.0</span>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var STORAGE_KEY = 'she_tracker_history_v1';
+
+        var CATEGORY_META = {
+            running:  { emoji: '🏃', name: 'Running' },
+            walking:  { emoji: '🚶', name: 'Walking' },
+            strength: { emoji: '💪', name: 'Strength' },
+            general:  { emoji: '🌱', name: 'General Fitness' }
+        };
+
+        var FEELING_META = {
+            easy: { emoji: '😊', label: 'Senang' },
+            okay: { emoji: '😐', label: 'Okay' },
+            hard: { emoji: '😓', label: 'Susah' }
+        };
+
+        // Progressive programs. Index = number of sessions already completed in that category.
+        // Once a user goes past the list, it repeats/maintains the last goal.
+        var PROGRAMS = {
+            running: [
+                'Jalan pantas 15 minit',
+                'Jalan pantas 20 minit',
+                'Jalan 15 min + jog ringan 5 min',
+                'Rehat aktif: regangan 10 minit',
+                'Jalan 10 min + jog 10 min',
+                'Jog 15 minit berterusan',
+                'Jalan 5 min + jog 15 min',
+                'Rehat aktif: regangan',
+                'Jog 20 minit',
+                'Interval: jog 5 min, jalan 2 min (x3)',
+                'Jog 25 minit',
+                'Rehat aktif',
+                'Jog 25-30 minit',
+                'Jog 30 minit pada pace selesa'
+            ],
+            walking: [
+                'Jalan pantas 20 minit',
+                'Jalan pantas 20 minit',
+                'Jalan pantas 25 minit',
+                'Rehat aktif: regangan ringan',
+                'Jalan pantas 25 minit',
+                'Jalan pantas 30 minit',
+                'Jalan pantas 30 min + laluan berbukit',
+                'Rehat aktif',
+                'Jalan pantas 35 minit',
+                'Jalan pantas 35 minit, pace lagi laju',
+                'Jalan pantas 40 minit',
+                'Rehat aktif',
+                'Jalan pantas 40 minit',
+                'Jalan pantas 45 minit — anda dah sebulan!'
+            ],
+            strength: [
+                'Bodyweight asas: squat, push-up dinding, plank — 2 set',
+                'Bodyweight asas — 2 set, tambah 2 repetisi',
+                'Rehat aktif: regangan',
+                'Bodyweight asas — 3 set',
+                'Tambah lunges + glute bridge — 2 set',
+                'Full body circuit — 3 set',
+                'Rehat aktif',
+                'Circuit + tambah masa plank',
+                'Full body circuit — 3 set, kurangkan rehat',
+                'Tambah resistance band / dumbbell ringan',
+                'Rehat aktif',
+                'Full body circuit — 4 set',
+                'Circuit intensiti sederhana-tinggi',
+                'Full body strength — anda dah lebih kuat!'
+            ],
+            general: [
+                'Senaman ringan pilihan anda — 15 minit',
+                'Jalan kaki 20 minit',
+                'Regangan + mobiliti 15 minit',
+                'Senaman kardio ringan 20 minit',
+                'Rehat aktif',
+                'Circuit ringan: jalan + bodyweight — 20 minit',
+                'Aktiviti fizikal pilihan anda — 25 minit',
+                'Rehat aktif',
+                'Kardio + kekuatan campuran — 25 minit',
+                'Cuba aktiviti baru (renang/basikal/dance) — 25-30 min',
+                'Rehat aktif',
+                '30 minit aktiviti fizikal',
+                '30 minit + tambah intensiti',
+                '30 minit — anda dah bina habit sihat!'
+            ]
+        };
+
+        // ---------- Storage helpers ----------
+        function loadHistory() {
+            try {
+                var raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveHistory(history) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+            } catch (e) {
+                // localStorage unavailable (private mode, etc). Fail silently.
+            }
+        }
+
+        function countForCategory(history, category) {
+            var count = 0;
+            for (var i = 0; i < history.length; i++) {
+                if (history[i].category === category) count++;
+            }
+            return count;
+        }
+
+        function getGoalForCategory(category, sessionIndex) {
+            var program = PROGRAMS[category];
+            if (sessionIndex < program.length) {
+                return program[sessionIndex];
+            }
+            return program[program.length - 1];
+        }
+
+        // ---------- State ----------
+        var state = {
+            category: null,
+            dayIndex: 0,
+            goalText: '',
+            timerInterval: null,
+            timerSeconds: 0
+        };
+
+        // ---------- Screen switching ----------
+        function showScreen(id) {
+            var screens = document.querySelectorAll('.screen');
+            for (var i = 0; i < screens.length; i++) {
+                screens[i].classList.remove('active');
+            }
+            document.getElementById(id).classList.add('active');
+        }
+
+        // ---------- Screen 1 -> 2 ----------
+        function selectCategory(category) {
+            var history = loadHistory();
+            var sessionIndex = countForCategory(history, category);
+            var goal = getGoalForCategory(category, sessionIndex);
+            var meta = CATEGORY_META[category];
+
+            state.category = category;
+            state.dayIndex = sessionIndex + 1;
+            state.goalText = goal;
+
+            document.getElementById('dayBadge').textContent = 'HARI ' + state.dayIndex;
+            document.getElementById('goalEmoji').textContent = meta.emoji;
+            document.getElementById('goalText').textContent = goal;
+            document.getElementById('goalSub').textContent = 'Matlamat ' + meta.name + ' hari ini';
+
+            showScreen('screen-goal');
+        }
+
+        // ---------- Screen 2 -> 3 (start session, run timer) ----------
+        function startSession() {
+            var meta = CATEGORY_META[state.category];
+            document.getElementById('sessionEmoji').textContent = meta.emoji;
+            document.getElementById('sessionGoalText').textContent = state.goalText;
+
+            state.timerSeconds = 0;
+            updateTimerDisplay();
+            state.timerInterval = setInterval(function () {
+                state.timerSeconds++;
+                updateTimerDisplay();
+            }, 1000);
+
+            showScreen('screen-session');
+        }
+
+        function updateTimerDisplay() {
+            var m = Math.floor(state.timerSeconds / 60);
+            var s = state.timerSeconds % 60;
+            var display = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+            document.getElementById('timerDisplay').textContent = display;
+        }
+
+        // ---------- Screen 3 -> 4 ----------
+        function finishSession() {
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+                state.timerInterval = null;
+            }
+            showScreen('screen-feedback');
+        }
+
+        // ---------- Screen 4 -> 5 (log + done) ----------
+        function logFeeling(feeling) {
+            var history = loadHistory();
+            history.push({
+                category: state.category,
+                goal: state.goalText,
+                dayIndex: state.dayIndex,
+                feeling: feeling,
+                durationSeconds: state.timerSeconds,
+                date: new Date().toISOString()
+            });
+            saveHistory(history);
+
+            document.getElementById('doneSub').textContent =
+                'Anda dah selesaikan ' + state.dayIndex + ' sesi ' + CATEGORY_META[state.category].name + '. Jumpa lagi esok!';
+
+            renderStats();
+            renderHistory();
+            showScreen('screen-done');
+        }
+
+        // ---------- Stats ----------
+        function renderStats() {
+            var history = loadHistory();
+            var statsBar = document.getElementById('statsBar');
+            if (history.length === 0) {
+                statsBar.style.display = 'none';
+                return;
+            }
+            statsBar.style.display = 'flex';
+            document.getElementById('statTotal').textContent = history.length;
+            document.getElementById('statStreak').textContent = calculateStreak(history);
+        }
+
+        function calculateStreak(history) {
+            if (history.length === 0) return 0;
+            var days = {};
+            for (var i = 0; i < history.length; i++) {
+                var d = new Date(history[i].date);
+                var key = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+                days[key] = true;
+            }
+            var streak = 0;
+            var cursor = new Date();
+            while (true) {
+                var key = cursor.getFullYear() + '-' + cursor.getMonth() + '-' + cursor.getDate();
+                if (days[key]) {
+                    streak++;
+                    cursor.setDate(cursor.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+            return streak;
+        }
+
+        // ---------- History rendering ----------
+        function renderHistory() {
+            var history = loadHistory();
+            var list = document.getElementById('historyList');
+            list.innerHTML = '';
+
+            if (history.length === 0) {
+                list.innerHTML = '<div class="history-empty">Belum ada sejarah lagi. Mula sesi pertama anda!</div>';
+                return;
+            }
+
+            var sorted = history.slice().sort(function (a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
+
+            for (var i = 0; i < sorted.length; i++) {
+                var entry = sorted[i];
+                var catMeta = CATEGORY_META[entry.category] || { emoji: '⭐', name: entry.category };
+                var feelMeta = FEELING_META[entry.feeling] || { emoji: '' };
+                var d = new Date(entry.date);
+                var dateStr = d.toLocaleDateString('ms-MY', { day: 'numeric', month: 'short', year: 'numeric' }) +
+                    ' · ' + d.toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' });
+
+                var item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML =
+                    '<span class="cat-emoji">' + catMeta.emoji + '</span>' +
+                    '<div class="info">' +
+                        '<div class="goal">' + escapeHtml(entry.goal) + '</div>' +
+                        '<div class="date">' + dateStr + '</div>' +
+                    '</div>' +
+                    '<span class="feel-emoji">' + feelMeta.emoji + '</span>';
+                list.appendChild(item);
+            }
+        }
+
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function toggleHistorySection() {
+            var section = document.getElementById('historySection');
+            var isHidden = section.style.display === 'none' || section.style.display === '';
+            if (isHidden) {
+                renderHistory();
+                section.style.display = 'block';
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                section.style.display = 'none';
+            }
+        }
+
+        function clearHistory() {
+            if (confirm('Padam semua sejarah tracker anda? Tindakan ini tidak boleh diundur.')) {
+                localStorage.removeItem(STORAGE_KEY);
+                renderStats();
+                renderHistory();
+            }
+        }
+
+        // ---------- Wire up events ----------
+        document.addEventListener('DOMContentLoaded', function () {
+            var categoryBtns = document.querySelectorAll('.category-btn');
+            for (var i = 0; i < categoryBtns.length; i++) {
+                categoryBtns[i].addEventListener('click', function () {
+                    selectCategory(this.getAttribute('data-category'));
+                });
+            }
+
+            document.getElementById('startBtn').addEventListener('click', startSession);
+            document.getElementById('backToSelectBtn').addEventListener('click', function () {
+                showScreen('screen-select');
+            });
+            document.getElementById('finishBtn').addEventListener('click', finishSession);
+
+            var feelingBtns = document.querySelectorAll('.feeling-btn');
+            for (var j = 0; j < feelingBtns.length; j++) {
+                feelingBtns[j].addEventListener('click', function () {
+                    logFeeling(this.getAttribute('data-feeling'));
+                });
+            }
+
+            document.getElementById('doneHomeBtn').addEventListener('click', function () {
+                showScreen('screen-select');
+            });
+            document.getElementById('doneHistoryBtn').addEventListener('click', toggleHistorySection);
+            document.getElementById('navHistoryBtn').addEventListener('click', toggleHistorySection);
+            document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
+
+            renderStats();
+        });
+    })();
+    </script>
+
+</body>
+</html>
