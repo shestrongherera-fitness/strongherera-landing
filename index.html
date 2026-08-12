@@ -45,12 +45,12 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .grid-container {
-            display: flex;
+	.grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             max-width: 900px;
             width: 100%;
-            flex-wrap: wrap; /* Allows stacking on mobile screens */
             justify-content: center;
         }
 
@@ -59,8 +59,6 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            flex: 1;
-            min-width: 300px; /* Prevents cards from getting too thin on mobile */
             display: flex;
             flex-direction: column;
             text-align: center;
@@ -342,9 +340,6 @@
         <p>Track progress anda, sikit demi sikit, hari demi hari.</p>
         <a href="tracker.html" class="btn-tracker">Guna Tracker Sekarang &rarr;</a>
     </div>
-
-    </div>
-
 
 	<!-- Footer Section -->
     <footer>
