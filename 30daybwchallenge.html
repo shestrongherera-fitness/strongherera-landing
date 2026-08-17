@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StrongHerEra | Free Fitness Guide</title>
+    <title>StrongHerEra | 30 Day Briskwalk Challenge PDF</title>
+    <link rel="icon" type="image/png" href="E.png">
     <style>
         :root {
             --primary-color: #d81b60; /* Strong, vibrant pink/red */
@@ -236,6 +237,19 @@
             color: #4a5568;
         }
 
+	/* Mobile Header Fix */
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column; /* Stacks the brand and nav vertically */
+                padding: 15px 20px;
+                gap: 12px; /* Adds space between the logo and the links */
+            }
+            
+            body {
+                padding-top: 130px; /* Gives the body more room so the taller header doesn't cover your content */
+            }
+        }
+
     </style>
 
 	<script data-goatcounter="https://strongherera.goatcounter.com/count"
@@ -323,8 +337,11 @@
         <div class="divider">ATAU</div>
 
         <!-- Direct Download Link -->
-        <a href="30 day challenge bw.pdf" download class="direct-link" data-goatcounter-click="direct-pdf-download">
-            Klik Di Sini Untuk Muat Turun Terus
+        <a href="30 day challenge bw.pdf" download class="direct-link" onclick="window.goatcounter.count({
+    		path: 'direct-download-30daybw',
+    		title: 'Downloaded 30daybw PDF',
+    		event: true
+	})">Klik Di Sini Untuk Muat Turun Terus
         </a>
     </div>
 

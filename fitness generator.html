@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StrongHerEra | Fitness Tracker</title>
+    <link rel="icon" type="image/png" href="E.png">
+    <script data-goatcounter="https://strongherera.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
     <style>
         :root {
             --primary-color: #d81b60;
@@ -405,6 +408,20 @@
             .category-grid { grid-template-columns: 1fr 1fr; }
             .app-card { padding: 28px 18px; }
         }
+
+	/* Mobile Header Fix */
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column; /* Stacks the brand and nav vertically */
+                padding: 15px 20px;
+                gap: 12px; /* Adds space between the logo and the links */
+            }
+            
+            body {
+                padding-top: 130px; /* Gives the body more room so the taller header doesn't cover your content */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -729,6 +746,7 @@
                 clearInterval(state.timerInterval);
                 state.timerInterval = null;
             }
+	    va.track('tracker-session-completed');
             showScreen('screen-feedback');
         }
 
